@@ -1,0 +1,135 @@
+package com.company;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
+
+public class Main extends JFrame implements ActionListener {
+static double allCasesNumber;
+    Test web = new Test();
+
+    static boolean isCLicked= false;
+    ChartFrame chartFrame;
+static String CountryStr;
+static JTextField Country;
+    public static void main(String[] args) throws IOException {
+
+
+
+
+    }
+
+    public Main(){
+
+        super("MyApp");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setSize(400, 600);
+        setLocation(710,400);
+
+
+
+
+
+        setLayout(null);
+        JLabel Title = new JLabel(String.valueOf(web.NamePage));
+        Title.setFont(Title.getFont().deriveFont(18.0f));
+        Title.setBounds(30,10,400,60);
+        add(Title);
+
+     JLabel WeatherMon = new JLabel("All cases of covid:  " +web.AllWrldCase);
+        WeatherMon.setBounds(50,60,400,20);
+        WeatherMon.setFont(Title.getFont().deriveFont(20.0f));
+        add(WeatherMon);
+
+        JLabel WeatherTommorow= new JLabel("Deaths causes:  " + web.DeathCases);
+        WeatherTommorow.setFont(Title.getFont().deriveFont(20.0f));
+        WeatherTommorow.setBounds(50,90,400,20);
+        add(WeatherTommorow);
+
+      Country = new JTextField("");
+       Country.setBounds(50,120,80,20);
+add(Country);
+
+JButton Lookfor = new JButton("Szukaj!");
+Lookfor.setBounds(50,150,100,30);
+add(Lookfor);
+
+Lookfor.addActionListener(this);
+
+
+
+
+
+        setVisible(true);
+
+
+
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+
+        CountryStr = Country.getText();
+
+        System.out.println(web.elementArr[web.i].text());
+
+        for(web.i=0;web.i<200;web.i++){
+
+
+
+
+         
+
+
+
+             System.out.println(web.elementArr[web.i].text());
+
+             if(CountryStr.equals(web.elementArr[web.i].text()))
+             {
+                 DefaultPieDataset cases = new DefaultPieDataset();
+                 cases.setValue("Infections", Double.parseDouble(web.deathsArr[web.i].text()));
+                 cases.setValue("Deaths", Double.parseDouble(web.AllArr[web.i].text()));
+                 cases.setValue("Infections in 7 days", Double.parseDouble((web.SevenArr[web.i].text())));
+
+                 JFreeChart chart = ChartFactory.createPieChart(
+                         "Infections in "+CountryStr,
+                         cases,
+                         true,
+                         true,
+                         false
+                 );
+
+                 chartFrame = new ChartFrame("Infectionsin", chart,true);
+
+                 chartFrame.setSize(400,500);
+                 chartFrame.setVisible(true);
+
+
+                 System.out.println(web.SevenArr[web.i].text());
+                 System.out.println(web.deathsArr[web.i].text());
+                 System.out.println(web.AllArr[web.i].text());
+                 System.out.println("jest");
+             }
+             else
+                 System.out.println("nie");
+
+        }
+
+
+                // System.out.println(elementArr[i].text());
+
+
+
+
+    }
+}
