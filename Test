@@ -1,0 +1,142 @@
+package com.company;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Test {
+
+
+    static int i;
+    static Element div;
+    static Element divCases;
+    static String divCasesString;
+    static String SevenString;
+    static Element SevenCases;
+    static String AllWrldCase;
+
+    static Element[] elementArr;
+    static Element[] deathsArr;
+    static Element[] AllArr;
+    static Element CasesArr;
+    static String CasesAr;
+    static Element[] SevenArr;
+    static String divv;
+    static ArrayList<Element> elements = new ArrayList<>();
+    static ArrayList<Element> deaths= new ArrayList<>();
+    static ArrayList<Element> All= new ArrayList<>();
+    static ArrayList<Element> Seven= new ArrayList<>();
+
+    static double DeathNumber;
+    static double AllNumber;
+    static String table;
+    static String sevendays;
+    static String NamePage;
+    static Element Al;
+static String AllCases;
+    static String DeathCases;
+    static String CountryCases;
+
+    public static void main(String[] args) throws IOException  {
+
+        Document document = (Document) Jsoup.connect("https://www.worldometers.info/coronavirus/").get();
+
+        Document CoronaCountries = (Document) Jsoup.connect("https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases").get();
+
+
+        Element AllWrldCases = CoronaCountries.select("tr").last().child(2);
+        AllWrldCase = AllWrldCases.text();
+
+        System.out.println(AllWrldCase);
+
+
+
+      //  AllCases =  document.getElementsByClass("maincounter-number").get(0).text();
+        AllCases = CoronaCountries.select("tr > td").get(3).text();
+        System.out.println(AllCases);
+
+        AllNumber = Double.parseDouble(AllCases);
+
+
+        for(Element element : CoronaCountries.select("tr"))
+        {
+
+
+
+            div = element.child(1);
+            divv = div.text();
+
+
+            divCases = element.child(2);
+            divCasesString = divCases.text();
+
+
+            CasesArr = element.child(3);
+            CasesAr = CasesArr.text();
+
+            SevenCases = element.child(4);
+            SevenString = SevenCases.text();
+
+
+
+              elements.add(div);
+
+              deaths.add(divCases);
+                All.add(CasesArr);
+                Seven.add(SevenCases);
+        }
+
+        deathsArr = deaths.toArray(new Element[]{});
+        elementArr = elements.toArray(new Element[]{});
+        AllArr = All.toArray(new Element[]{});
+        SevenArr = Seven.toArray(new Element[]{});
+
+
+        String s= String.valueOf(elements.get(5));
+
+
+
+
+
+        DeathCases = document.getElementsByClass("maincounter-number").get(1).text();
+        System.out.println(DeathCases);
+
+
+
+        table = CoronaCountries.select("tr > td").get(2).text();
+        System.out.println(table);
+
+        DeathNumber = Double.parseDouble(table);
+
+        sevendays = CoronaCountries.select("tr > td").get(4).text();
+
+
+        CountryCases = CoronaCountries.getElementsByClass("table table-bordered table-striped").get(0).text();
+       // System.out.println(CountryCases);
+
+
+NamePage = CoronaCountries.title();
+
+        //System.out.println(NamePage);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+
+
+                new Main();
+            }
+        });
+
+
+
+    }
+
+
+
+
+
+}
